@@ -8,7 +8,7 @@ Installation
 
 .. code-block:: bash
 
-    pip install git+https://github.com/ministryofjustice/django-form-error-reporting.git
+    pip install django-form-error-reporting
 
 Usage
 -----
@@ -17,7 +17,7 @@ See examples in tests/forms.py
 
 .. code-block:: python
 
-    class ReportedForm(GoogleAnalyticsErrorReportingMixin, Form):
+    class ReportedForm(GAErrorReportingMixin, Form):
         ga_tracking_id = 'UA-12345678-0'
 
         ...
