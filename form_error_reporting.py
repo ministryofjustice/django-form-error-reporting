@@ -137,7 +137,8 @@ class GAErrorReportingMixin(object):
 
             for _hits in paginate(_hits):
                 _hits = list(filter(limit_8kb, _hits))
-                yield from separate_groups(_hits)
+                for _hit_group in separate_groups(_hits):
+                    yield _hit_group
 
         hits = []
         responses = []
