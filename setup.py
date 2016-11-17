@@ -15,7 +15,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-form-error-reporting',
-    version='0.3',
+    version='0.4',
     author='Ministry of Justice Digital Services',
     url='https://github.com/ministryofjustice/django-form-error-reporting',
     py_modules=['form_error_reporting'],

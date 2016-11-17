@@ -41,7 +41,11 @@ class GAErrorReportingMixin(object):
         """
         is_valid = super(GAErrorReportingMixin, self).is_valid()
         if not is_valid:
-            self.report_errors_to_ga(self.errors)
+            try:
+                self.report_errors_to_ga(self.errors)
+            except:
+                # no one cares
+                pass
         return is_valid
 
     def get_ga_single_endpoint(self):
