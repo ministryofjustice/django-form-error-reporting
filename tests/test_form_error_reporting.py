@@ -1,4 +1,5 @@
 import os
+import subprocess
 import types
 import unittest
 try:
@@ -221,3 +222,11 @@ class FormErrorReportingTestCase(SimpleTestCase):
         form.ga_batch_hits = False
         form.report_errors_to_ga = types.MethodType(report_errors, form)
         form.is_valid()
+
+
+class CodeStyleTestCase(unittest.TestCase):
+    def test_code_style(self):
+        try:
+            subprocess.check_output(['flake8'])
+        except subprocess.CalledProcessError as e:
+            self.fail('Code style checks failed\n%s' % e.output.decode('utf-8'))

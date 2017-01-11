@@ -4,7 +4,7 @@ import sys
 
 from setuptools import setup
 
-tests_require = ['responses>=0.5']
+tests_require = ['flake8>=3.2', 'responses>=0.5']
 if sys.version_info < (3, 3):
     tests_require.append('mock>=1.3')
 

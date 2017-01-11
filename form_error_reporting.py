@@ -117,37 +117,6 @@ class GAErrorReportingMixin(object):
         Report errors to Google Analytics
         https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
         """
-        def batches(_hits):
-            # Separate hit payloads into batches of 20
-            # Block signle hit payloads > 8KB
-            # TODO: Perhaps trim single payloads to fit 8KB? e.g. the el & ua parameters
-            # Separate out batches into total payloads <= 16KB
-
-            def paginate(_group):
-                page_size = 20
-                for page in range(int(ceil(len(_group) / page_size))):
-                    yield _group[page * page_size:page * page_size + page_size]
-
-            def limit_8kb(payload):
-                return len(payload.encode('utf8')) <= 8 * 1024
-
-            def limit_16kb(payload):
-                return len(payload.encode('utf8')) <= 16 * 1024
-
-            def separate_groups(_group):
-                payload = '\n'.join(_group)
-                if limit_16kb(payload):
-                    yield payload
-                else:
-                    group_size = len(_group) // 2
-                    yield separate_groups(_group[:group_size])
-                    yield separate_groups(_group[group_size:])
-
-            for _hits in paginate(_hits):
-                _hits = list(filter(limit_8kb, _hits))
-                for _hit_group in separate_groups(_hits):
-                    yield _hit_group
-
         hits = []
         responses = []
         for field_name in sorted(errors):
@@ -157,7 +126,7 @@ class GAErrorReportingMixin(object):
                     hits.append(event)
 
         if self.ga_batch_hits:
-            for hit_batch in batches(hits):
+            for hit_batch in _batch_hits(hits):
                 response = requests.post(self.get_ga_batch_endpoint(), data=hit_batch)
                 responses.append(response)
         else:
@@ -221,3 +190,35 @@ class GARequestErrorReportingMixin(GAErrorReportingMixin):
         if user_agent:
             query_dict['ua'] = user_agent
         return query_dict
+
+
+def _batch_hits(hits):
+    # Separate hit payloads into batches of 20
+    # Block single hit payloads > 8KB
+    # TODO: Perhaps trim single payloads to fit 8KB? e.g. the el & ua parameters
+    # Separate out batches into total payloads <= 16KB
+
+    def paginate(group):
+        page_size = 20
+        for page in range(int(ceil(len(group) / page_size))):
+            yield group[page * page_size:page * page_size + page_size]
+
+    def limit_8kb(payload):
+        return len(payload.encode('utf8')) <= 8 * 1024
+
+    def limit_16kb(payload):
+        return len(payload.encode('utf8')) <= 16 * 1024
+
+    def separate_groups(group):
+        payload = '\n'.join(group)
+        if limit_16kb(payload):
+            yield payload
+        else:
+            group_size = len(group) // 2
+            yield separate_groups(group[:group_size])
+            yield separate_groups(group[group_size:])
+
+    for hits_page in paginate(hits):
+        hits_page = list(filter(limit_8kb, hits_page))
+        for hit_group in separate_groups(hits_page):
+            yield hit_group
