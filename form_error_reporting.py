@@ -183,7 +183,8 @@ class GARequestErrorReportingMixin(GAErrorReportingMixin):
         request = self.get_ga_request()
         if not request:
             return query_dict
-        user_ip = request.META.get('REMOTE_ADDR')
+        user_ip = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', ''))
+        user_ip = user_ip.split(',')[0].strip()
         user_agent = request.META.get('HTTP_USER_AGENT')
         if user_ip:
             query_dict['uip'] = user_ip
