@@ -3,15 +3,10 @@ Django Form Error Reporting
 
 A form mixin that reports form errors as events to Google Analytics.
 
-Installation
-------------
-
-.. code-block:: bash
-
-    pip install django-form-error-reporting
-
 Usage
 -----
+
+Install using ``pip install django-form-error-reporting``.
 
 See examples in tests/forms.py
 
@@ -22,17 +17,19 @@ See examples in tests/forms.py
 
         ...
 
-Testing
--------
+Development
+-----------
 
-.. code-block:: bash
+Please report bugs and open pull requests on `GitHub`_.
 
-    python setup.py test
+Use ``python setup.py test`` to run all tests.
+
+Distribute a new version by updating the ``VERSION`` tuple in ``form_error_reporting`` and run ``python setup.py sdist bdist_wheel upload``.
 
 Copyright
 ---------
 
-Copyright |copy| 2016 HM Government (Ministry of Justice Digital Services). See
-LICENSE for further details.
+Copyright |copy| 2017 HM Government (Ministry of Justice Digital Services). See LICENSE for further details.
 
 .. |copy| unicode:: 0xA9 .. copyright symbol
+.. _GitHub: https://github.com/ministryofjustice/django-form-error-reporting
