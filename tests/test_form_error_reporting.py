@@ -148,6 +148,20 @@ class FormErrorReportingTestCase(SimpleTestCase):
             },
         ])
 
+    def test_report_batching(self):
+        from tests.forms import ManyErrorTestForm
+
+        form = ManyErrorTestForm(data={'required_text': 'abc'})
+        with mock.patch('form_error_reporting.requests') as mocked_requests:
+            self.assertFalse(form.is_valid(), 'Form should be invalid')
+            self.assertEqual(mocked_requests.post.call_count, 2)
+            for call in mocked_requests.post.call_args_list:
+                data = call[1]['data']
+                self.assertLessEqual(len(data.encode('utf8')), 16 * 1024,
+                                     'Each report cannot be greater than 16kb')
+                self.assertLessEqual(len(data.splitlines()), 20,
+                                     'There cannot be more than 20 hits per report')
+
     @mock.patch('tests.utils.get_template_source')
     @mock.patch('tests.urls.get_context')
     def test_form_errors_with_session(self, mocked_context, mocked_template_source):

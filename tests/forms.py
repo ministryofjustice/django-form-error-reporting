@@ -1,6 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from form_error_reporting import GAErrorReportingMixin, GARequestErrorReportingMixin
 
@@ -13,7 +14,7 @@ class TestForm(forms.Form):
     def clean(self):
         cleaned_data = super(TestForm, self).clean()
         if self.raise_non_field_error:
-            raise ValidationError('This form is invalid.', code='invalid')
+            raise ValidationError(_('This form is invalid.'), code='invalid')
         return cleaned_data
 
 
@@ -32,3 +33,15 @@ class RequestReportedForm(GARequestErrorReportingMixin, TestForm):
     def __init__(self, request, **kwargs):
         self.request = request
         super(RequestReportedForm, self).__init__(**kwargs)
+
+
+class ManyErrorTestForm(GAErrorReportingMixin, forms.Form):
+    """
+    Form that always raises many errors
+    """
+    optional_text = forms.CharField(required=False)
+    ga_tracking_id = settings.GOOGLE_ANALYTICS_ID
+
+    def clean(self):
+        long_text = 692 * '_'
+        raise ValidationError(['Error%02d-%s' % (i, long_text) for i in range(30)])

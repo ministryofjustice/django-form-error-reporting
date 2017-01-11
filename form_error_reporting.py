@@ -221,8 +221,10 @@ def _batch_hits(hits):
             yield payload
         else:
             group_size = len(group) // 2
-            yield separate_groups(group[:group_size])
-            yield separate_groups(group[group_size:])
+            for payload in separate_groups(group[:group_size]):
+                yield payload
+            for payload in separate_groups(group[group_size:]):
+                yield payload
 
     for hits_page in paginate(hits):
         hits_page = list(filter(limit_8kb, hits_page))
