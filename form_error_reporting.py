@@ -47,7 +47,7 @@ class GAErrorReportingMixin(object):
         Error reporting is triggered when a form is checked for validity
         """
         is_valid = super(GAErrorReportingMixin, self).is_valid()
-        if not is_valid:
+        if self.is_bound and not is_valid:
             try:
                 self.report_errors_to_ga(self.errors)
             except:
