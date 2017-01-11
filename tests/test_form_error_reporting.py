@@ -164,29 +164,32 @@ class FormErrorReportingTestCase(SimpleTestCase):
         "{{ form.is_valid }}"
         '''
 
+        user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) ' \
+                     'Chrome/55.0.2883.95 Safari/537.36'
         with responses.RequestsMock() as rsps:
             rsps.add(rsps.POST, urljoin(RequestReportedForm.ga_endpoint_base, '/batch'))
             response = self.client.post(reverse('dummy'), data={
                 'required_number': 1,
                 'required_text': '',
-            }, HTTP_USER_AGENT='Mozilla/5.0')
+            }, HTTP_USER_AGENT=user_agent)
+            client_id = response.client.session.get('ga_client_id')
             self.assertContains(response, '"False"')
             self.assertResponseErrorsReported(rsps, [
                 {
-                    'cid': response.client.session.get('ga_client_id'),
+                    'cid': client_id,
                     'ec': 'tests.forms.RequestReportedForm',
                     'ea': 'required_number',
                     'el': 'Ensure this value is greater than or equal to 3.',
                     'uip': '127.0.0.1',
-                    'ua': 'Mozilla/5.0',
+                    'ua': user_agent,
                 },
                 {
-                    'cid': response.client.session.get('ga_client_id'),
+                    'cid': client_id,
                     'ec': 'tests.forms.RequestReportedForm',
                     'ea': 'required_text',
                     'el': 'This field is required.',
                     'uip': '127.0.0.1',
-                    'ua': 'Mozilla/5.0',
+                    'ua': user_agent,
                 },
             ])
 
