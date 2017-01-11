@@ -8,6 +8,10 @@ from django.conf import settings
 import requests
 from six.moves.urllib.parse import quote, urljoin
 
+VERSION = (0, 4)
+__version__ = '.'.join(map(str, VERSION))
+__all__ = ('GAErrorReportingMixin', 'GARequestErrorReportingMixin')
+
 
 class OrderedQueryDict(OrderedDict):
     """

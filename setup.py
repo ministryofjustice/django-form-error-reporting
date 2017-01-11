@@ -1,10 +1,8 @@
+import importlib
 import os
 import sys
 
 from setuptools import setup
-
-with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
-    README = readme.read()
 
 tests_require = ['responses>=0.5']
 if sys.version_info < (3, 3):
@@ -13,9 +11,14 @@ if sys.version_info < (3, 3):
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
+__version__ = importlib.import_module('form_error_reporting').__version__
+
+with open('README.rst') as readme:
+    README = readme.read()
+
 setup(
     name='django-form-error-reporting',
-    version='0.4',
+    version=__version__,
     author='Ministry of Justice Digital Services',
     url='https://github.com/ministryofjustice/django-form-error-reporting',
     py_modules=['form_error_reporting'],
@@ -25,6 +28,7 @@ setup(
     install_requires=['Django>=1.9', 'requests', 'six'],
     classifiers=[
         'Framework :: Django',
+        'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2.7',
