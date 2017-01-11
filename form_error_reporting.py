@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import logging
 from math import ceil
 import re
 import uuid
@@ -11,6 +12,8 @@ from six.moves.urllib.parse import quote, urljoin
 VERSION = (0, 4)
 __version__ = '.'.join(map(str, VERSION))
 __all__ = ('GAErrorReportingMixin', 'GARequestErrorReportingMixin')
+
+logger = logging.getLogger(__name__)
 
 
 class OrderedQueryDict(OrderedDict):
@@ -48,8 +51,7 @@ class GAErrorReportingMixin(object):
             try:
                 self.report_errors_to_ga(self.errors)
             except:
-                # no one cares
-                pass
+                logger.exception('Failed to report form errors to Google Analytics')
         return is_valid
 
     def get_ga_single_endpoint(self):
