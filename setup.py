@@ -1,4 +1,3 @@
-import importlib
 import os
 import sys
 
@@ -11,14 +10,12 @@ if sys.version_info < (3, 3):
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-__version__ = importlib.import_module('form_error_reporting').__version__
-
 with open('README.rst') as readme:
     README = readme.read()
 
 setup(
     name='django-form-error-reporting',
-    version=__version__,
+    version='0.6',
     author='Ministry of Justice Digital Services',
     url='https://github.com/ministryofjustice/django-form-error-reporting',
     py_modules=['form_error_reporting'],
