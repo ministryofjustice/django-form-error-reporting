@@ -24,7 +24,7 @@ Please report bugs and open pull requests on `GitHub`_.
 
 Use ``python setup.py test`` to run all tests.
 
-Distribute a new version by updating the ``VERSION`` tuple in ``form_error_reporting`` and run ``python setup.py sdist bdist_wheel upload``.
+Distribute a new version by updating the ``version`` argument in ``setup.py:setup`` and run ``python setup.py sdist bdist_wheel upload``.
 
 Copyright
 ---------
