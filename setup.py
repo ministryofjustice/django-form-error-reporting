@@ -3,15 +3,14 @@ import sys
 
 from setuptools import setup
 
+root_path = os.path.abspath(os.path.dirname(__file__))
+
+with open(os.path.join(root_path, 'README.rst')) as readme:
+    README = readme.read()
+
 tests_require = ['flake8>=3.2', 'responses>=0.5']
 if sys.version_info < (3, 3):
     tests_require.append('mock>=1.3')
-
-# allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
-
-with open('README.rst') as readme:
-    README = readme.read()
 
 setup(
     name='django-form-error-reporting',
@@ -22,15 +21,20 @@ setup(
     license='MIT',
     description='A form mixin that reports form errors as events to Google Analytics',
     long_description=README,
-    install_requires=['Django>=1.9', 'requests', 'six'],
+    keywords='django form errors google-analytics',
     classifiers=[
+        'Development Status :: 4 - Beta',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
         'Operating System :: OS Independent',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
     ],
-    test_suite='tests.test_form_error_reporting',
+    install_requires=['Django>=1.9', 'requests', 'six'],
     tests_require=tests_require,
+    test_suite='tests.test_form_error_reporting',
 )

@@ -1,45 +1,16 @@
-# Byte-compiled / optimized / DLL files
+# compiled
 __pycache__/
+*.mo
+*.po~
+*.pot
 *.py[cod]
-*$py.class
 
-# Distribution / packaging
-.Python
+# packaging
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# environments
 env/
 venv/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*,cover
-.hypothesis/
-
-# Translations
-*.mo
-*.pot
-
-# Sphinx documentation
-docs/_build/
