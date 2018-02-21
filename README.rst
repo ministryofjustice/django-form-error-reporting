@@ -29,7 +29,7 @@ Distribute a new version by updating the ``version`` argument in ``setup.py:setu
 Copyright
 ---------
 
-Copyright |copy| 2017 HM Government (Ministry of Justice Digital Services). See LICENSE for further details.
+Copyright (C) 2018 HM Government (Ministry of Justice Digital Services).
+See LICENSE.txt for further details.
 
-.. |copy| unicode:: 0xA9 .. copyright symbol
 .. _GitHub: https://github.com/ministryofjustice/django-form-error-reporting
