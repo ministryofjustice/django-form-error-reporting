@@ -20,6 +20,9 @@ See examples in tests/forms.py
 Development
 -----------
 
+.. image:: https://travis-ci.org/ministryofjustice/django-form-error-reporting.svg?branch=master
+    :target: https://travis-ci.org/ministryofjustice/django-form-error-reporting
+
 Please report bugs and open pull requests on `GitHub`_.
 
 Use ``python setup.py test`` to run all tests.
