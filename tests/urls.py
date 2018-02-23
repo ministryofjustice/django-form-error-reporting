@@ -1,16 +1,14 @@
 from django.conf.urls import url
-from django.shortcuts import render
+from django.http.response import HttpResponse
+
+from tests.forms import RequestReportedForm
 
 
-def get_context(request):
-    # mock this function in tests
-    return {}
-
-
-def dummy_view(request):
-    return render(request, 'dummy.html', context=get_context(request))
+def test_form(request):
+    form = RequestReportedForm(request, data=request.POST)
+    return HttpResponse('"%s"' % form.is_valid())
 
 
 urlpatterns = [
-    url(r'^dummy$', dummy_view, name='dummy'),
+    url(r'^$', test_form, name='test-form'),
 ]
