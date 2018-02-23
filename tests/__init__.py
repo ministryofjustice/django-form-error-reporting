@@ -11,18 +11,13 @@ test_settings = dict(
     INSTALLED_APPS=[
         'django.contrib.sessions',
     ],
-    MIDDLEWARE_CLASSES=[
+    MIDDLEWARE=[
         'django.contrib.sessions.middleware.SessionMiddleware',
     ],
     SESSION_ENGINE='django.contrib.sessions.backends.signed_cookies',
     TEMPLATES=[{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': False,
-        'OPTIONS': {
-            'context_processors': [],
-            'loaders': ['tests.utils.DummyTemplateLoader'],
-        },
     }],
     GOOGLE_ANALYTICS_ID='UA-12345678-0',
 )

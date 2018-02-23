@@ -1,7 +1,6 @@
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.utils.translation import ugettext_lazy as _
 
 from form_error_reporting import GAErrorReportingMixin, GARequestErrorReportingMixin
 
@@ -14,7 +13,7 @@ class TestForm(forms.Form):
     def clean(self):
         cleaned_data = super(TestForm, self).clean()
         if self.raise_non_field_error:
-            raise ValidationError(_('This form is invalid.'), code='invalid')
+            raise ValidationError('This form is invalid.', code='invalid')
         return cleaned_data
 
 

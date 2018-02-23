@@ -1,3 +1,4 @@
+from __future__ import division
 from collections import OrderedDict
 import logging
 from math import ceil
@@ -48,7 +49,7 @@ class GAErrorReportingMixin(object):
         if self.is_bound and not is_valid:
             try:
                 self.report_errors_to_ga(self.errors)
-            except:
+            except:  # noqa: E722
                 logger.exception('Failed to report form errors to Google Analytics')
         return is_valid
 

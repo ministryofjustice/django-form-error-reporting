@@ -6,7 +6,10 @@ try:
 except ImportError:
     import mock
 
-from django.core.urlresolvers import reverse
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import SimpleTestCase
 import responses
@@ -29,6 +32,7 @@ class FormErrorReportingTestCase(SimpleTestCase):
                 't': 'event',
             })
         reported_error_dicts = []
+        self.assertEqual(len(rsps.calls), 1)
         for error_line in rsps.calls[0].request.body.splitlines():
             if not error_line:
                 continue
@@ -127,27 +131,14 @@ class FormErrorReportingTestCase(SimpleTestCase):
                 self.assertLessEqual(len(data.splitlines()), 20,
                                      'There cannot be more than 20 hits per report')
 
-    @mock.patch('tests.utils.get_template_source')
-    @mock.patch('tests.urls.get_context')
-    def test_form_errors_with_session(self, mocked_context, mocked_template_source):
+    def test_form_errors_with_session(self):
         from tests.forms import RequestReportedForm
-
-        def get_context(request):
-            form = RequestReportedForm(request, data=request.POST)
-            return {
-                'form': form,
-            }
-
-        mocked_context.side_effect = get_context
-        mocked_template_source.return_value = '''
-        "{{ form.is_valid }}"
-        '''
 
         user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) ' \
                      'Chrome/55.0.2883.95 Safari/537.36'
         with responses.RequestsMock() as rsps:
             rsps.add(rsps.POST, urljoin(RequestReportedForm.ga_endpoint_base, '/batch'))
-            response = self.client.post(reverse('dummy'), data={
+            response = self.client.post(reverse('test-form'), data={
                 'required_number': 1,
                 'required_text': '',
             }, HTTP_USER_AGENT=user_agent)
@@ -200,6 +191,7 @@ class FormErrorReportingTestCase(SimpleTestCase):
             'required_number': 1,
             'required_text': 'abc',
         })
+        form.ga_tracking_id = os.environ['GOOGLE_ANALYTICS_ID']
         form.ga_endpoint_base = 'https://ssl.google-analytics.com/debug/'
         form.ga_batch_hits = False
         form.report_errors_to_ga = types.MethodType(report_errors, form)
