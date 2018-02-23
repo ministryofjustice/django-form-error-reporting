@@ -8,9 +8,14 @@ root_path = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(root_path, 'README.rst')) as readme:
     README = readme.read()
 
-tests_require = ['flake8>=3.2', 'responses>=0.5']
-if sys.version_info < (3, 3):
-    tests_require.append('mock>=1.3')
+install_requires = ['requests', 'six']
+tests_require = ['flake8', 'responses']
+if sys.version_info < (3, 4):
+    django_version = '>=1.10,<2'
+    tests_require.append('mock')
+else:
+    django_version = '>=1.10'
+install_requires.append('Django%s' % django_version)
 
 setup(
     name='django-form-error-reporting',
@@ -34,7 +39,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
     ],
-    install_requires=['Django>=1.9', 'requests', 'six'],
+    install_requires=install_requires,
     tests_require=tests_require,
-    test_suite='tests.test_form_error_reporting',
+    test_suite='tests.run',
 )

@@ -1,5 +1,4 @@
 import os
-import subprocess
 import types
 import unittest
 try:
@@ -13,42 +12,8 @@ from django.test import SimpleTestCase
 import responses
 from six.moves.urllib.parse import urljoin
 
-DEFAULT_SETTINGS = dict(
-    DEBUG=True,
-    SECRET_KEY='a' * 24,
-    ROOT_URLCONF='tests.urls',
-    INSTALLED_APPS=[
-        'django.contrib.sessions',
-    ],
-    MIDDLEWARE_CLASSES=[
-        'django.contrib.sessions.middleware.SessionMiddleware'
-    ],
-    SESSION_ENGINE='django.contrib.sessions.backends.signed_cookies',
-    TEMPLATES=[{
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': False,
-        'OPTIONS': {
-            'context_processors': [],
-            'loaders': ['tests.utils.DummyTemplateLoader']
-        },
-    }],
-    GOOGLE_ANALYTICS_ID=os.environ.get('GOOGLE_ANALYTICS_ID', 'UA-12345678-0'),
-)
-
 
 class FormErrorReportingTestCase(SimpleTestCase):
-    @classmethod
-    def setUpClass(cls):
-        import django
-        from django.conf import settings
-
-        if not settings.configured:
-            settings.configure(**DEFAULT_SETTINGS)
-            django.setup()
-
-        super(FormErrorReportingTestCase, cls).setUpClass()
-
     def submit_simple_form(self, data):
         from tests.forms import SimpleReportedForm
 
@@ -60,7 +25,7 @@ class FormErrorReportingTestCase(SimpleTestCase):
         for expected_error_dict in expected_error_dicts:
             expected_error_dict.update({
                 'v': '1',
-                'tid': DEFAULT_SETTINGS['GOOGLE_ANALYTICS_ID'],
+                'tid': 'UA-12345678-0',
                 't': 'event',
             })
         reported_error_dicts = []
@@ -239,11 +204,3 @@ class FormErrorReportingTestCase(SimpleTestCase):
         form.ga_batch_hits = False
         form.report_errors_to_ga = types.MethodType(report_errors, form)
         form.is_valid()
-
-
-class CodeStyleTestCase(unittest.TestCase):
-    def test_code_style(self):
-        try:
-            subprocess.check_output(['flake8'])
-        except subprocess.CalledProcessError as e:
-            self.fail('Code style checks failed\n%s' % e.output.decode('utf-8'))
