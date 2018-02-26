@@ -19,7 +19,7 @@ install_requires.append('Django%s' % django_version)
 
 setup(
     name='django-form-error-reporting',
-    version='0.6',
+    version='0.7',
     author='Ministry of Justice Digital Services',
     url='https://github.com/ministryofjustice/django-form-error-reporting',
     py_modules=['form_error_reporting'],
