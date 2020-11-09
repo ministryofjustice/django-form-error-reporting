@@ -12,8 +12,8 @@ tests_require = ['flake8', 'responses']
 
 setup(
     name='django-form-error-reporting',
-    version='0.7',
-    author='Ministry of Justice Digital Services',
+    version='0.8',
+    author='Ministry of Justice Digital & Technology',
     author_email='dev@digital.justice.gov.uk',
     url='https://github.com/ministryofjustice/django-form-error-reporting',
     py_modules=['form_error_reporting'],
