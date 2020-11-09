@@ -1,6 +1,7 @@
-from __future__ import division
 from collections import OrderedDict
 import logging
+from urllib.parse import quote, urljoin
+
 from math import ceil
 import re
 import uuid
@@ -8,7 +9,6 @@ import warnings
 
 from django.conf import settings
 import requests
-from six.moves.urllib.parse import quote, urljoin
 
 __all__ = ('GAErrorReportingMixin', 'GARequestErrorReportingMixin')
 
@@ -30,7 +30,7 @@ class OrderedQueryDict(OrderedDict):
         return '&'.join(output)
 
 
-class GAErrorReportingMixin(object):
+class GAErrorReportingMixin:
     """
     Form mixin that reports form errors to Google Analytics with events
     """

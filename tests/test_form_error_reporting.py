@@ -1,10 +1,8 @@
 import os
 import types
 import unittest
-try:
-    from unittest import mock
-except ImportError:
-    import mock
+from unittest import mock
+from urllib.parse import urljoin
 
 try:
     from django.urls import reverse
@@ -13,7 +11,6 @@ except ImportError:
 from django.http import QueryDict
 from django.test import SimpleTestCase
 import responses
-from six.moves.urllib.parse import urljoin
 
 
 class FormErrorReportingTestCase(SimpleTestCase):
