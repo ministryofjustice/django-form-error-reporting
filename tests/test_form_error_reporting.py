@@ -4,12 +4,9 @@ import unittest
 from unittest import mock
 from urllib.parse import urljoin
 
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
 from django.http import QueryDict
 from django.test import SimpleTestCase
+from django.urls import reverse
 import responses
 
 
