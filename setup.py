@@ -1,7 +1,13 @@
 #!/usr/bin/env python
+import importlib
 import os
+import sys
+import warnings
 
 from setuptools import setup
+
+if sys.version_info[0:2] < (3, 6):
+    warnings.warn('This package is tested with Python version 3.6+')
 
 root_path = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,10 +17,12 @@ with open(os.path.join(root_path, 'README.rst')) as readme:
 install_requires = ['Django>=2.2,<4', 'requests']
 tests_require = ['flake8', 'responses']
 
+package_info = importlib.import_module('form_error_reporting')
+
 setup(
     name='django-form-error-reporting',
-    version='0.8',
-    author='Ministry of Justice Digital & Technology',
+    version=package_info.__version__,
+    author=package_info.__author__,
     author_email='dev@digital.justice.gov.uk',
     url='https://github.com/ministryofjustice/django-form-error-reporting',
     py_modules=['form_error_reporting'],
@@ -30,7 +38,6 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
