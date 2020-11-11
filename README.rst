@@ -34,7 +34,7 @@ Alternatively, run ``python setup.py sdist bdist_wheel upload`` locally.
 Copyright
 ---------
 
-Copyright (C) 2020 HM Government (Ministry of Justice Digital Services).
+Copyright (C) 2020 HM Government (Ministry of Justice Digital & Technology).
 See LICENSE.txt for further details.
 
 .. _GitHub: https://github.com/ministryofjustice/django-form-error-reporting
