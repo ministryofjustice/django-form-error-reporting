@@ -14,8 +14,9 @@ root_path = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(root_path, 'README.rst')) as readme:
     README = readme.read()
 
-install_requires = ['Django>=2.2,<4', 'requests']
-tests_require = [
+setup_requires = ['Django>=2.2,<4']
+install_requires = setup_requires + ['requests']
+tests_require = setup_requires + [
     'flake8', 'flake8-bugbear', 'flake8-quotes', 'flake8-blind-except', 'flake8-debugger', 'pep8-naming',
     'responses',
 ]
@@ -45,6 +46,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
+    setup_requires=setup_requires,
     install_requires=install_requires,
     tests_require=tests_require,
     test_suite='tests.run',
