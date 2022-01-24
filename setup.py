@@ -21,7 +21,7 @@ tests_require = [
 
 setup(
     name='django-form-error-reporting',
-    version='0.9',
+    version='0.10',
     author='Ministry of Justice Digital & Technology',
     author_email='dev@digital.justice.gov.uk',
     url='https://github.com/ministryofjustice/django-form-error-reporting',
@@ -33,6 +33,10 @@ setup(
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',
+        'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
