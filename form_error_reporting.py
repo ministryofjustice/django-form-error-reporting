@@ -49,7 +49,7 @@ class GAErrorReportingMixin:
         if self.is_bound and not is_valid:
             try:
                 self.report_errors_to_ga(self.errors)
-            except:  # noqa: E722
+            except:  # noqa: E722, B001
                 logger.exception('Failed to report form errors to Google Analytics')
         return is_valid
 
