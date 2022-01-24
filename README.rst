@@ -20,7 +20,7 @@ See examples in tests/forms.py
 Development
 -----------
 
-.. image:: https://github.com/ministryofjustice/django-form-error-reporting/workflows/Run%20tests/badge.svg?branch=master
+.. image:: https://github.com/ministryofjustice/django-form-error-reporting/workflows/Run%20tests/badge.svg?branch=main
     :target: https://github.com/ministryofjustice/django-form-error-reporting/actions
 
 Please report bugs and open pull requests on `GitHub`_.
