@@ -1,9 +1,11 @@
 import os
+import sys
 import types
 import unittest
 from unittest import mock
 from urllib.parse import urljoin
 
+import django
 from django.http import QueryDict
 from django.test import SimpleTestCase
 from django.urls import reverse
@@ -11,6 +13,9 @@ import responses
 
 
 class FormErrorReportingTestCase(SimpleTestCase):
+    def test_print_django_version(self):
+        print(f'Testing on django {django.__version__}', file=sys.stderr)
+
     def submit_simple_form(self, data):
         from tests.forms import SimpleReportedForm
 
