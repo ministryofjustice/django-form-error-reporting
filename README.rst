@@ -3,6 +3,8 @@ Django Form Error Reporting
 
 A form mixin that reports form errors as events to Google Analytics.
 
+NB: Only Universal Analtics is supported, which is now deprecated!
+
 Usage
 -----
 
@@ -20,8 +22,11 @@ See examples in tests/forms.py
 Development
 -----------
 
-.. image:: https://github.com/ministryofjustice/django-form-error-reporting/workflows/Run%20tests/badge.svg?branch=main
-    :target: https://github.com/ministryofjustice/django-form-error-reporting/actions
+.. image:: https://github.com/ministryofjustice/django-form-error-reporting/actions/workflows/test.yml/badge.svg?branch=main
+    :target: https://github.com/ministryofjustice/django-form-error-reporting/actions/workflows/test.yml
+
+.. image:: https://github.com/ministryofjustice/django-form-error-reporting/actions/workflows/lint.yml/badge.svg?branch=main
+    :target: https://github.com/ministryofjustice/django-form-error-reporting/actions/workflows/lint.yml
 
 Please report bugs and open pull requests on `GitHub`_.
 
@@ -34,7 +39,7 @@ Alternatively, run ``python setup.py sdist bdist_wheel upload`` locally.
 Copyright
 ---------
 
-Copyright (C) 2022 HM Government (Ministry of Justice Digital & Technology).
+Copyright (C) 2023 HM Government (Ministry of Justice Digital & Technology).
 See LICENSE.txt for further details.
 
 .. _GitHub: https://github.com/ministryofjustice/django-form-error-reporting
