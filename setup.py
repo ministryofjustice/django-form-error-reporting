@@ -18,7 +18,7 @@ tests_require = ['responses']
 
 setup(
     name='django-form-error-reporting',
-    version='0.10',
+    version='0.11',
     author='Ministry of Justice Digital & Technology',
     author_email='dev@digital.justice.gov.uk',
     url='https://github.com/ministryofjustice/django-form-error-reporting',

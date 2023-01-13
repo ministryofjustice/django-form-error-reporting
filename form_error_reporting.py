@@ -14,6 +14,8 @@ __all__ = ('GAErrorReportingMixin', 'GARequestErrorReportingMixin')
 
 logger = logging.getLogger(__name__)
 
+warnings.warn('Only Universal Analytics is supported, which is now deprecated!')
+
 
 class OrderedQueryDict(OrderedDict):
     """
