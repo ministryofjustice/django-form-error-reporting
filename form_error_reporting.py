@@ -14,7 +14,7 @@ __all__ = ('GAErrorReportingMixin', 'GARequestErrorReportingMixin')
 
 logger = logging.getLogger(__name__)
 
-warnings.warn('Only Universal Analytics is supported, which is now deprecated!')
+warnings.warn('Only Universal Analytics is supported, which is now deprecated!', stacklevel=1)
 
 
 class OrderedQueryDict(OrderedDict):
@@ -105,7 +105,7 @@ class GAErrorReportingMixin:
         """
         tracking_id = self.get_ga_tracking_id()
         if not tracking_id:
-            warnings.warn('Google Analytics tracking ID is not set')
+            warnings.warn('Google Analytics tracking ID is not set', stacklevel=1)
             return None
         query_dict = self.get_ga_query_dict()
         query_dict['tid'] = tracking_id
