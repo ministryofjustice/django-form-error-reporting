@@ -7,10 +7,10 @@ import re
 import uuid
 import warnings
 
-from django.conf import settings
-import requests
-
 __all__ = ('GAErrorReportingMixin', 'GARequestErrorReportingMixin')
+
+VERSION = (0, 11)
+__version__ = '.'.join(map(str, VERSION))
 
 logger = logging.getLogger(__name__)
 
@@ -120,6 +120,8 @@ class GAErrorReportingMixin:
         Report errors to Google Analytics
         https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
         """
+        import requests
+
         hits = []
         responses = []
         for field_name in sorted(errors):
@@ -153,6 +155,8 @@ class GARequestErrorReportingMixin(GAErrorReportingMixin):
         """
         Retrieve tracking ID from settings
         """
+        from django.conf import settings
+
         if hasattr(settings, self.ga_tracking_id_settings_key):
             return getattr(settings, self.ga_tracking_id_settings_key)
         return super(GARequestErrorReportingMixin, self).get_ga_tracking_id()

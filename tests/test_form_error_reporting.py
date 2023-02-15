@@ -120,11 +120,12 @@ class FormErrorReportingTestCase(SimpleTestCase):
         from tests.forms import ManyErrorTestForm
 
         form = ManyErrorTestForm(data={'required_text': 'abc'})
-        with mock.patch('form_error_reporting.requests') as mocked_requests:
+        with responses.RequestsMock() as rsps:
+            rsps.add(rsps.POST, form.get_ga_batch_endpoint())
             self.assertFalse(form.is_valid(), 'Form should be invalid')
-            self.assertEqual(mocked_requests.post.call_count, 2)
-            for call in mocked_requests.post.call_args_list:
-                data = call[1]['data']
+            self.assertEqual(len(rsps.calls), 2)
+            for call in rsps.calls:
+                data = call[0].body
                 self.assertLessEqual(len(data.encode('utf8')), 16 * 1024,
                                      'Each report cannot be greater than 16kb')
                 self.assertLessEqual(len(data.splitlines()), 20,
