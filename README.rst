@@ -1,6 +1,9 @@
 Django Form Error Reporting
 ===========================
 
+**DEPRECATED**: We have decided to not update this package to support GA4 and this is
+no longer maintained.
+
 A form mixin that reports form errors as events to Google Analytics.
 
 NB: Only Universal Analytics is supported, which is now deprecated!
