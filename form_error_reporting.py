@@ -36,6 +36,7 @@ class GAErrorReportingMixin:
     """
     Form mixin that reports form errors to Google Analytics with events
     """
+
     ga_endpoint_base = 'https://ssl.google-analytics.com/'
     # NB: non-ssl version is http://www.google-analytics.com/
     ga_tracking_id = None
@@ -148,6 +149,7 @@ class GARequestErrorReportingMixin(GAErrorReportingMixin):
     set in the __init__ method of subclasses. This mixin also assumes the
     Google Analytics tracking ID is provided in the Django settings.
     """
+
     ga_tracking_id_settings_key = 'GOOGLE_ANALYTICS_ID'
     ga_cookie_re = re.compile(r'^GA\d+\.\d+\.(?P<cid>.*)$', re.I)
 

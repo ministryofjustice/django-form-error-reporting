@@ -21,6 +21,7 @@ class SimpleReportedForm(GAErrorReportingMixin, TestForm):
     """
     Minimal form - sets the tracking ID class-wide
     """
+
     ga_tracking_id = settings.GOOGLE_ANALYTICS_ID
 
 
@@ -38,6 +39,7 @@ class ManyErrorTestForm(GAErrorReportingMixin, forms.Form):
     """
     Form that always raises many errors
     """
+
     optional_text = forms.CharField(required=False)
     ga_tracking_id = settings.GOOGLE_ANALYTICS_ID
 
