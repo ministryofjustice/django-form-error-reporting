@@ -9,7 +9,7 @@ import warnings
 
 __all__ = ('GAErrorReportingMixin', 'GARequestErrorReportingMixin')
 
-VERSION = (0, 11)
+VERSION = (0, 12)
 __version__ = '.'.join(map(str, VERSION))
 
 logger = logging.getLogger(__name__)
